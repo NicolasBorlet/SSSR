@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
+import Layout from "../../../../shared/ui/layout/Layout";
 import { brandAtom } from "../../atoms/BrandAtoms";
 import { Brand } from "../../types/brand";
 
@@ -54,28 +55,30 @@ const BrandSoloScreen = () => {
   }
 
   return (
-    <div className="m-5">
-      <div className="bg-blue-100 rounded-lg p-3">
-        <h2>Update Brand</h2>
-        <div className="flex flex-center justify-start gap-5 mt-3">
-          <p>ID: {brand.BrandID}</p>
-          <div className="flex gap-2 bg-blue-200 rounded-lg p-3 m-5">
-            <label>Name:</label>
-            <input type="text" value={name} onChange={handleNameChange} />
+    <Layout>
+      <div className="m-5">
+        <div className="bg-blue-100 rounded-lg p-3">
+          <h2>Update Brand</h2>
+          <div className="flex flex-center justify-start gap-5 mt-3">
+            <p>ID: {brand.BrandID}</p>
+            <div className="flex gap-2 bg-blue-200 rounded-lg p-3 m-5">
+              <label>Name:</label>
+              <input type="text" value={name} onChange={handleNameChange} />
+            </div>
+            <div className="flex gap-2 bg-blue-200 rounded-lg p-3 m-5">
+              <label>Description:</label>
+              <textarea value={desc} onChange={handleDescChange} />
+            </div>
+            <button
+              className="bg-blue-300 rounded-lg px-2 py-1"
+              onClick={handleUpdate}
+            >
+              Update
+            </button>
           </div>
-          <div className="flex gap-2 bg-blue-200 rounded-lg p-3 m-5">
-            <label>Description:</label>
-            <textarea value={desc} onChange={handleDescChange} />
-          </div>
-          <button
-            className="bg-blue-300 rounded-lg px-2 py-1"
-            onClick={handleUpdate}
-          >
-            Update
-          </button>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

@@ -9,7 +9,9 @@ function App() {
           <main className="bg-red-300 flex justify-between">
             <div className="bg-red-100 w-[20%]">
               <ul>
-                <li>Produits</li>
+                <li>
+                  <a href="/product">Produits</a>
+                </li>
                 <li>
                   <a href="/brand">Marques</a>
                 </li>

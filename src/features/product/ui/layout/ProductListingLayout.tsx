@@ -1,58 +1,68 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { brandAtom } from "../../atoms/BrandAtoms";
+import { productAtom } from "../../atoms/ProductAtoms";
 
-const BrandListingLayout = () => {
-  const [brands, setBrands] = useRecoilState(brandAtom);
+const ProductListingLayout = () => {
+  const [products, setProducts] = useRecoilState(productAtom);
 
   useEffect(() => {
     // fetch data from API
-    fetch("http://localhost:3000/brand/")
+    fetch("http://localhost:3000/product/")
       .then((res) => res.json())
       .then((data) => {
         // set data to state
-        setBrands(data);
+        setProducts(data);
         console.log(data);
       });
   }, []);
 
-  //function to delete brand
-  const deleteBrand = (id: number) => {
+  //function to delete product
+  const deleteProduct = (id: string) => {
     // fetch data from API
-    fetch(`http://localhost:3000/brand/${id}`, {
+    fetch(`http://localhost:3000/product/${id}`, {
       method: "DELETE",
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return res.text();
+      })
       .then((data) => {
-        // set data to state
-        setBrands(brands.filter((brand) => brand.BrandID !== id));
-        console.log(data);
+        console.log(id);
+        window.location.href = "/product";
+      })
+      .catch((error) => {
+        console.error("Error deleting product:", error);
       });
   };
 
-  if (!brands) {
+  if (!products) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="m-5 w-full">
-      <h1>Toutes les marques</h1>
+      <h1>Tous les produits</h1>
       <div className="bg-blue-100 rounded-lg p-3">
         <ul>
-          {brands.map((brand) => (
-            <li key={brand.BrandID} className="bg-blue-200 rounded-lg p-3 m-5">
+          {products.map((product) => (
+            <li
+              key={product.ProductID}
+              className="bg-blue-200 rounded-lg p-3 m-5"
+            >
               <h2
                 className="text-2xl font-bold"
                 suppressContentEditableWarning={true}
               >
-                {brand.BrandName}
+                {product.ProductName}
               </h2>
               <p className="text-xl" suppressContentEditableWarning={true}>
-                {brand.BrandDesc}
+                ProductShortDesc : {product.ProductShortDesc}
               </p>
               <button
                 className="bg-blue-300 rounded-lg px-2 py-1 mr-5"
-                onClick={() => deleteBrand(brand.BrandID)}
+                onClick={() => deleteProduct(product.ProductID)}
               >
                 Supprimer
               </button>
@@ -60,7 +70,7 @@ const BrandListingLayout = () => {
                 className="bg-blue-300 rounded-lg px-2 py-1"
                 //on click go to edit page
                 onClick={() => {
-                  window.location.href = `/brand/${brand.BrandID}`;
+                  window.location.href = `/product/${product.ProductID}`;
                 }}
               >
                 Voir et Modifier
@@ -73,4 +83,4 @@ const BrandListingLayout = () => {
   );
 };
 
-export default BrandListingLayout;
+export default ProductListingLayout;
