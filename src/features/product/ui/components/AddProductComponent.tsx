@@ -57,8 +57,8 @@ const AddProductComponent = () => {
 
   return (
     <div className="m-5 overflow-y-scroll h-[90vh]">
-      <h1>Ajouter un produit</h1>
-      <div className="bg-blue-100 rounded-lg p-3">
+      <h1 className="mb-3">Ajouter un produit</h1>
+      <div>
         <form
           className="flex flex-col gap-3 justify-center items-center"
           onSubmit={(e) => {
