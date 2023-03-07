@@ -5,3 +5,8 @@ export const productAtom = atom<Product[]>({
   key: "productAtom",
   default: [],
 });
+
+export const productTypeAtom = atom({
+  key: "productTypeAtom",
+  default: "shoes",
+});

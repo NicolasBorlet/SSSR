@@ -29,34 +29,15 @@ const ProductSoloScreen = () => {
         setProductLongDesc(data[0].ProductLongDesc);
         setProductStock(data[0].ProductStock);
         setType(data[0].type);
+        console.log(data);
       });
+
+    // fetch(`http://localhost:3000/shoessize/${id}`)
+    //   .then((res) => res.json())
+    //   .then((data: Product[]) => {
+    //     console.log(data);
+    //   });
   }, [id, setProducts]);
-
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
-
-  const handleProductCartDesc = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setProductCartDesc(event.target.value);
-  };
-
-  const handleProductShortDesc = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setProductShortDesc(event.target.value);
-  };
-
-  const handleProductLongDesc = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setProductLongDesc(event.target.value);
-  };
-
-  const handleProductStock = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setProductStock(Number(event.target.value));
-  };
 
   const handleUpdate = () => {
     fetch(`http://localhost:3000/product/${id}`, {
@@ -91,31 +72,35 @@ const ProductSoloScreen = () => {
       <div className="m-5">
         <div className="bg-blue-100 rounded-lg p-3">
           <h2>Update Product</h2>
-          <div className="flex flex-col flex-center justify-start gap-5 mt-3">
+          <div className="flex flex-col flex-center justify-start mt-3">
             <p>ID: {product.ProductID}</p>
             <div className="flex gap-2 bg-blue-200 rounded-lg p-3 m-5">
               <label>Name:</label>
-              <input type="text" value={name} onChange={handleNameChange} />
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
             <div className="flex gap-2 bg-blue-200 rounded-lg p-3 m-5">
               <label>ProductCartDesc:</label>
               <textarea
                 value={productCartDesc}
-                onChange={handleProductCartDesc}
+                onChange={(e) => setProductCartDesc(e.target.value)}
               />
             </div>
             <div className="flex gap-2 bg-blue-200 rounded-lg p-3 m-5">
               <label>ProductShortDesc:</label>
               <textarea
                 value={productShortDesc}
-                onChange={handleProductShortDesc}
+                onChange={(e) => setProductShortDesc(e.target.value)}
               />
             </div>
             <div className="flex gap-2 bg-blue-200 rounded-lg p-3 m-5">
               <label>ProductLongDesc:</label>
               <textarea
                 value={productLongDesc}
-                onChange={handleProductLongDesc}
+                onChange={(e) => setProductLongDesc(e.target.value)}
               />
             </div>
             <div className="flex gap-2 bg-blue-200 rounded-lg p-3 m-5">
@@ -123,7 +108,7 @@ const ProductSoloScreen = () => {
               <input
                 type="number"
                 value={productStock}
-                onChange={handleProductStock}
+                onChange={(e) => setProductStock(Number(e.target.value))}
               />
             </div>
             <button

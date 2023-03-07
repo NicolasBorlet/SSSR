@@ -6,14 +6,22 @@ export interface Product {
     ProductLongDesc: string;
     ProductThumb: string;
     // ProductUpdateTime?: string;
-    BrandID: string;
+    BrandID?: string | undefined;
     ProductStock: number;
     type: string;
-    // VinylArtist?: string | null;
-    // VinylLabel?: string | null;
-    // VinylDuration?: number | null;
-    // VinylAlbum?: string | null;
-    // VinylPrice?: number | null;
+}
+
+export interface ProductVinyl {
+    ProductID: any;
+    VinylArtist?: string | null;
+    VinylLabel?: string | null;
+    VinylDuration?: number | null;
+    VinylAlbum?: string | null;
+    VinylPrice?: number | null;
+}
+
+export interface ProductShoes {
+    ProductID: any;
     ShoesSize?: number | null;
     ShoesSizePrice?: number | null;
     ShoesSizeQuantity?: number | null;

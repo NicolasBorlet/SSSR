@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { brandAtom } from "../../../brand/atoms/BrandAtoms";
-import { productAtom } from "../../atoms/ProductAtoms";
+import { productAtom, productTypeAtom } from "../../atoms/ProductAtoms";
 import { Product } from "../../types/product";
 
 const AddProductComponent = () => {
   const [products, setProducts] = useRecoilState(productAtom);
   const [brands, setBrands] = useRecoilState(brandAtom);
-  const [types, setTypes] = useState("chaussure");
+  const [types, setTypes] = useRecoilState(productTypeAtom);
 
   //useEffect for fetch brand data
   useEffect(() => {
@@ -33,60 +33,30 @@ const AddProductComponent = () => {
   // function to add product
   const addProduct = (product: Product) => {
     // fetch data from API
-    fetch(`http://localhost:3000/product/`, {
+    fetch("http://localhost:3000/product/", {
       method: "POST",
       headers: {
-        "Content-type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(product),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return res.text();
+      })
       .then((data) => {
-        // set data to state
-        setProducts([...products, data]);
-        window.location.href = "/product";
         console.log(data);
+        window.location.href = "/product";
+      })
+      .catch((error) => {
+        console.error("Error adding product:", error);
       });
-
-    //if product type is shoes, add product to shoes table
-    if (product.type === "shoes") {
-      fetch(`http://localhost:3000/shoessize/`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(product),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          // set data to state
-          setProducts([...products, data]);
-          window.location.href = "/product";
-          console.log(data);
-        });
-    }
-
-    //if product type is vinyl, add product to vinyl table
-    if (product.type === "vinyl") {
-      fetch(`http://localhost:3000/vinyl/`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(product),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          // set data to state
-          setProducts([...products, data]);
-          window.location.href = "/product";
-          console.log(data);
-        });
-    }
   };
 
   return (
-    <div className="m-5">
+    <div className="m-5 overflow-y-scroll h-[90vh]">
       <h1>Ajouter un produit</h1>
       <div className="bg-blue-100 rounded-lg p-3">
         <form
@@ -102,74 +72,88 @@ const AddProductComponent = () => {
               ProductStock: e.currentTarget.productStock.value,
               ProductThumb: e.currentTarget.productImage.value,
               type: e.currentTarget.productType.value,
-              BrandID: e.currentTarget.productBrand.value,
-              ShoesSize: e.currentTarget.ShoesSize.value,
-              ShoesSizePrice: e.currentTarget.ShoesSizePrice.value,
-              ShoesSizeQuantity: e.currentTarget.ShoesSizeQuantity.value,
+              BrandID: e.currentTarget.BrandID.value,
             });
           }}
         >
           <select
             name="productType"
-            className="self-start"
             onChange={updateType}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option value="shoes">Chaussures</option>
             <option value="vinyl">Vinyl</option>
           </select>
-          <label className="bg-blue-200 p-3 rounded-lg self-start">
+          <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Nom du produit:
-            <input type="text" name="productName" />
+            <input
+              type="text"
+              name="productName"
+              className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            />
           </label>
-          <label className="bg-blue-200 p-3 rounded-lg self-start">
+          <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Description carte du produit:
-            <textarea name="productCartDesc" />
+            <textarea
+              name="productCartDesc"
+              rows={4}
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
           </label>
-          <label className="bg-blue-200 p-3 rounded-lg self-start">
+          <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Description courte du produit:
-            <textarea name="productShortDesc" />
+            <textarea
+              name="productShortDesc"
+              rows={4}
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
           </label>
-          <label className="bg-blue-200 p-3 rounded-lg self-start">
+          <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Description longue du produit:
-            <textarea name="productLongDesc" />
+            <textarea
+              name="productLongDesc"
+              rows={4}
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
           </label>
-          <label className="bg-blue-200 p-3 rounded-lg self-start">
+          <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Stock du produit:
-            <input type="number" name="productStock" />
+            <input
+              type="number"
+              name="productStock"
+              className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            />
           </label>
-          <label className="bg-blue-200 p-3 rounded-lg self-start">
+          <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Image du produit:
-            <input type="file" name="productImage" />
+            <input
+              className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+              aria-describedby="product_image_help"
+              name="productImage"
+              id="productImage"
+              type="file"
+            ></input>
           </label>
-
           {types === "shoes" ? (
-            <>
-              <label className="bg-blue-200 p-3 rounded-lg self-start">
-                Marque du produit:
-                <select name="productBrand">
-                  {brands.map((brand) => (
-                    <option value={brand.BrandID}>{brand.BrandName}</option>
-                  ))}
-                </select>
-              </label>
-              <label className="bg-blue-200 p-3 rounded-lg self-start">
-                Taille du produit:
-                <input type="number" name="ShoesSize" />
-              </label>
-              <label className="bg-blue-200 p-3 rounded-lg self-start">
-                Prix du produit:
-                <input type="number" name="ShoesSizePrice" />
-              </label>
-              <label className="bg-blue-200 p-3 rounded-lg self-start">
-                Quantité du produit:
-                <input type="number" name="ShoesSizeQuantity" />
-              </label>
-            </>
+            <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Marque du produit:
+              <select
+                name="BrandID"
+                typeof="text"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                {brands.map((brand) => (
+                  <option value={brand.BrandID}>{brand.BrandName}</option>
+                ))}
+              </select>
+            </label>
           ) : (
             <></>
           )}
-
-          <button className="bg-blue-300 rounded-lg px-2 py-1" type="submit">
+          <button
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            type="submit"
+          >
             Ajouter le produit
           </button>
         </form>

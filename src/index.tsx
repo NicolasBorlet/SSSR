@@ -5,6 +5,7 @@ import { RecoilRoot } from "recoil";
 import App from "./App";
 import BrandScreen from "./features/brand/ui/screen/BrandScreen";
 import BrandSoloScreen from "./features/brand/ui/screen/BrandSoloScreen";
+import ProductConfigurationScreen from "./features/product/ui/screen/ProductConfigurationScreen";
 import ProductScreen from "./features/product/ui/screen/ProductScreen";
 import ProductSoloScreen from "./features/product/ui/screen/ProductSoloScreen";
 import reportWebVitals from "./reportWebVitals";
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: "/product/:id",
     element: <ProductSoloScreen />,
+  },
+  {
+    path: "/product/:id/configuration",
+    element: <ProductConfigurationScreen />,
   },
   {
     path: "*",
