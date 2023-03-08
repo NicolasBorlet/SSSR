@@ -62,18 +62,33 @@ const AddProductComponent = () => {
         <form
           className="flex flex-col gap-3 justify-center items-center"
           onSubmit={(e) => {
+            //if type is shoes
+
             e.preventDefault();
-            addProduct({
-              ProductID: null,
-              ProductName: e.currentTarget.productName.value,
-              ProductCartDesc: e.currentTarget.productCartDesc.value,
-              ProductShortDesc: e.currentTarget.productShortDesc.value,
-              ProductLongDesc: e.currentTarget.productLongDesc.value,
-              ProductStock: e.currentTarget.productStock.value,
-              ProductThumb: e.currentTarget.productImage.value,
-              type: e.currentTarget.productType.value,
-              BrandID: e.currentTarget.BrandID.value,
-            });
+            if (types === "shoes") {
+              addProduct({
+                ProductID: null,
+                ProductName: e.currentTarget.productName.value,
+                ProductCartDesc: e.currentTarget.productCartDesc.value,
+                ProductShortDesc: e.currentTarget.productShortDesc.value,
+                ProductLongDesc: e.currentTarget.productLongDesc.value,
+                ProductStock: e.currentTarget.productStock.value,
+                ProductThumb: e.currentTarget.productImage.value,
+                type: e.currentTarget.productType.value,
+                BrandID: e.currentTarget.BrandID.value,
+              });
+            } else if (types === "vinyl") {
+              addProduct({
+                ProductID: null,
+                ProductName: e.currentTarget.productName.value,
+                ProductCartDesc: e.currentTarget.productCartDesc.value,
+                ProductShortDesc: e.currentTarget.productShortDesc.value,
+                ProductLongDesc: e.currentTarget.productLongDesc.value,
+                ProductStock: e.currentTarget.productStock.value,
+                ProductThumb: e.currentTarget.productImage.value,
+                type: e.currentTarget.productType.value,
+              });
+            }
           }}
         >
           <select

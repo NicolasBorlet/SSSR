@@ -93,12 +93,24 @@ const ProductConfigurationScreen = () => {
       });
   };
 
+  const deleteShoesSize = (id: number) => {
+    // fetch data from API
+    fetch(`http://localhost:3000/shoessize/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // set data to state
+        setProducts([...products, data]);
+        // window.location.href = "/product/${product.ProductID}/configuration";
+        console.log(data);
+      });
+  };
+
   return (
     <Layout>
-      <div className="m-5 w-full">
-        <div className="bg-blue-100 rounded-lg p-3">
-          <h1>Product Configuration Screen</h1>
-          <h2>Product Type: {types}</h2>
+      <div className="m-5">
+        <div className="p-3">
           {types === "shoes" && (
             <div>
               <h3>Shoes Configuration</h3>
@@ -112,30 +124,37 @@ const ProductConfigurationScreen = () => {
                     ShoesSizeQuantity: e.currentTarget.ShoesSizeQuantity.value,
                   });
                 }}
-                className="flex flex-col bg-blue-400 rounded-lg p-3"
+                className="flex flex-col p-3"
               >
-                <label className="bg-blue-200 rounded-lg p-3 m-5">
+                <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Taille de chaussure
-                  <input type="number" placeholder="Taille" name="ShoesSize" />
+                  <input
+                    type="number"
+                    placeholder="Taille"
+                    name="ShoesSize"
+                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                  />
                 </label>
-                <label className="bg-blue-200 rounded-lg p-3 m-5">
+                <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Prix de la taille de chaussure
                   <input
                     type="number"
                     placeholder="Prix"
                     name="ShoesSizePrice"
+                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                   />
                 </label>
-                <label className="bg-blue-200 rounded-lg p-3 m-5">
+                <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Quantité de la taille de chaussure
                   <input
                     type="number"
                     placeholder="Quantité"
                     name="ShoesSizeQuantity"
+                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                   />
                 </label>
                 <button
-                  className="bg-blue-300 rounded-lg px-2 py-1"
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                   type="submit"
                 >
                   Ajouter la variation
@@ -151,7 +170,7 @@ const ProductConfigurationScreen = () => {
         </div>
         <div>
           <h1>Toutes les variations de ce produit</h1>
-          <div className="rounded-lg bg-blue-100">
+          <div className="">
             <div className="rounded-md p-5"></div>
             <table className="min-w-full leading-normal">
               <thead>
@@ -162,8 +181,11 @@ const ProductConfigurationScreen = () => {
                   <th className="px-5 py-3 border-b-2 border-gray-200 bg-blue-300 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                     Prix
                   </th>
-                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-blue-300 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th className="px-5 rounded-tr-lg py-3 border-b-2 border-gray-200 bg-blue-300 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                     Quantité
+                  </th>
+                  <th className="px-5 py-3 border-b-2 border-gray-200 bg-blue-300 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    Actions
                   </th>
                 </tr>
               </thead>
@@ -194,6 +216,24 @@ const ProductConfigurationScreen = () => {
                           <p className="text-gray-900 whitespace-no-wrap">
                             {item.ShoesSizeQuantity}
                           </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-5 py-5 border-b text-center border-gray-200 bg-white text-sm">
+                      <div className="flex items-center justify-center">
+                        <div className="ml-3">
+                          <button
+                            onClick={() => {
+                              console.log(item.ShoesSizeID);
+                              deleteShoesSize(item.ShoesSizeID);
+                            }}
+                            className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800"
+                            type="submit"
+                            value="Delete"
+                            name="Delete"
+                          >
+                            Supprimer
+                          </button>
                         </div>
                       </div>
                     </td>

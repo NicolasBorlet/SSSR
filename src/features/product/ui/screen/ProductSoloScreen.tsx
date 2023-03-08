@@ -70,12 +70,9 @@ const ProductSoloScreen = () => {
   return (
     <Layout>
       <div className="m-5">
-        <div className="bg-blue-100 rounded-lg p-3">
+        <div className="p-3">
           <h2>Update Product</h2>
           <div className="flex flex-col flex-center justify-start mt-3">
-            <p>ID: {product.ProductID}</p>
-            <p>Type: {product.type}</p>
-
             <form>
               <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Nom du produit
@@ -85,6 +82,24 @@ const ProductSoloScreen = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+              />
+              <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                ID du produit
+              </label>
+              <input
+                disabled
+                type="text"
+                value={product.ProductID}
+                className="shadow-sm bg-gray-50 border cursor-not-allowed border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+              />
+              <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Type de produit
+              </label>
+              <input
+                disabled
+                type="text"
+                value={product.type}
+                className="shadow-sm bg-gray-50 border cursor-not-allowed border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
               />
               <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Description de la carte
@@ -120,11 +135,11 @@ const ProductSoloScreen = () => {
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
               />
               <button
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                className="mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                 type="submit"
                 onClick={handleUpdate}
               >
-                Ajouter le produit
+                Mettre à jour le produit
               </button>
             </form>
           </div>

@@ -108,9 +108,9 @@ const ProductListingLayout = () => {
                         {product.type}
                       </span>
                     ) : (
-                      <p className="focus:outline-none text-white bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                      <span className="focus:outline-none text-white bg-purple-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
                         {product.type}
-                      </p>
+                      </span>
                     )}
                   </td>
                   <td className="px-5 py-5 border-b text-center border-gray-200 bg-gray-50 text-sm">

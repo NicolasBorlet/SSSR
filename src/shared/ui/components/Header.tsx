@@ -1,3 +1,5 @@
+import logo from "../../../../assets/images/logo.svg";
+
 const Header = () => {
   return (
     <header className="bg-green-100">
@@ -5,9 +7,9 @@ const Header = () => {
         <div className="container flex flex-wrap items-center justify-between mx-auto">
           <a className="flex items-center">
             <img
-              src="https://flowbite.com/docs/images/logo.svg"
+              src="{logo}"
               className="h-6 mr-3 sm:h-9"
-              alt="Flowbite Logo"
+              alt="Sneakers Station Records Logo"
             />
             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
               Sneakers Station Radio
