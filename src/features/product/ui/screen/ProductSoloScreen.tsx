@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import Layout from "../../../../shared/ui/layout/Layout";
+import { categorieAtom } from "../../../categorie/atoms/categorieAtom";
 import { productAtom } from "../../atoms/ProductAtoms";
 import { Product } from "../../types/product";
 
@@ -16,6 +17,7 @@ const ProductSoloScreen = () => {
   const [productThumb, setProductThumb] = useState("");
   const [productStock, setProductStock] = useState(0);
   const [type, setType] = useState("");
+  const [categories, setCategories] = useRecoilState(categorieAtom);
 
   useEffect(() => {
     fetch(`http://localhost:3000/product/${id}`)
@@ -33,12 +35,15 @@ const ProductSoloScreen = () => {
         console.log("type", type);
       });
 
-    // fetch(`http://localhost:3000/shoessize/${id}`)
-    //   .then((res) => res.json())
-    //   .then((data: Product[]) => {
-    //     console.log(data);
-    //   });
-  }, [id, setProducts]);
+    //fetch category data
+    fetch("http://localhost:3000/productcategorie/")
+      .then((res) => res.json())
+      .then((data) => {
+        // set data to state
+        setCategories(data);
+        console.log(data);
+      });
+  }, []);
 
   const handleUpdate = () => {
     fetch(`http://localhost:3000/product/${id}`, {
@@ -52,6 +57,7 @@ const ProductSoloScreen = () => {
         ProductShortDesc: productShortDesc,
         ProductLongDesc: productLongDesc,
         ProductStock: productStock,
+        ProductCategorieID: categories,
       }),
     })
       .then((res) => res.json())
@@ -74,6 +80,31 @@ const ProductSoloScreen = () => {
           <h2>Update Product</h2>
           <div className="flex flex-col flex-center justify-start mt-3">
             <form>
+              <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Catégorie du produit
+              </label>
+              <select
+                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                value={product.ProductCategorieID}
+                onChange={(e) => {
+                  setProduct({
+                    ...product,
+                    ProductCategorieID: e.target.value,
+                  });
+                }}
+              >
+                {categories.map((categorie) => (
+                  <>
+                    <option
+                      key={categorie.CategorieID}
+                      value={categorie.CategorieID}
+                    >
+                      {categorie.CategorieName}
+                    </option>
+                    <option value="NULL">-</option>
+                  </>
+                ))}
+              </select>
               <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Nom du produit
               </label>

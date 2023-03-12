@@ -26,6 +26,7 @@ const BrandListingLayout = () => {
       .then((data) => {
         // set data to state
         setBrands(brands.filter((brand) => brand.BrandID !== id));
+        window.location.reload();
         console.log(data);
       });
   };
@@ -35,39 +36,81 @@ const BrandListingLayout = () => {
   }
 
   return (
-    <div className="m-5 w-full">
+    <div className="m-5 w-[80%]">
       <h1>Toutes les marques</h1>
-      <div className="bg-blue-100 rounded-lg p-3">
-        <ul>
-          {brands.map((brand) => (
-            <li key={brand.BrandID} className="bg-blue-200 rounded-lg p-3 m-5">
-              <h2
-                className="text-2xl font-bold"
-                suppressContentEditableWarning={true}
-              >
-                {brand.BrandName}
-              </h2>
-              <p className="text-xl" suppressContentEditableWarning={true}>
-                {brand.BrandDesc}
-              </p>
-              <button
-                className="bg-blue-300 rounded-lg px-2 py-1 mr-5"
-                onClick={() => deleteBrand(brand.BrandID)}
-              >
+      <div>
+        <table className="w-full leading-normal border">
+          <thead>
+            <tr>
+              <th className="bg-blue-700  rounded-tl-lg px-5 py-3 border-b-2 border-gray-200  text-center text-xs font-semibold text-white uppercase tracking-wider">
+                Nom
+              </th>
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-blue-700  text-center text-xs font-semibold text-white uppercase tracking-wider">
+                Description
+              </th>
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-blue-700  text-center text-xs font-semibold text-white uppercase tracking-wider">
                 Supprimer
-              </button>
-              <button
-                className="bg-blue-300 rounded-lg px-2 py-1"
-                //on click go to edit page
-                onClick={() => {
-                  window.location.href = `/brand/${brand.BrandID}`;
-                }}
-              >
-                Voir et Modifier
-              </button>
-            </li>
-          ))}
-        </ul>
+              </th>
+              <th className="px-5 py-3 rounded-tr-lg border-b-2 border-gray-200 bg-blue-700  text-center text-xs font-semibold text-white uppercase tracking-wider">
+                Modifier
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {brands.map((brand) => (
+              <tr key={brand.BrandID}>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <div className="flex items-center justify-center">
+                    <div className="ml-3">
+                      <p className="text-gray-900 whitespace-no-wrap">
+                        {brand.BrandName}
+                      </p>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <div className="flex items-center justify-center">
+                    <div className="ml-3">
+                      <p className="text-gray-900 whitespace-no-wrap">
+                        {brand.BrandDesc}
+                      </p>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <div className="flex items-center justify-center">
+                    <div className="ml-3">
+                      <p className="text-gray-900 whitespace-no-wrap">
+                        <button
+                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                          onClick={() => deleteBrand(brand.BrandID)}
+                        >
+                          Supprimer
+                        </button>
+                      </p>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <div className="flex items-center justify-center">
+                    <div className="ml-3">
+                      <p className="text-gray-900 whitespace-no-wrap">
+                        <button
+                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                          onClick={() => {
+                            window.location.href = `/brand/${brand.BrandID}`;
+                          }}
+                        >
+                          Modifier
+                        </button>
+                      </p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

@@ -57,24 +57,35 @@ const BrandSoloScreen = () => {
   return (
     <Layout>
       <div className="m-5">
-        <div className="bg-blue-100 rounded-lg p-3">
-          <h2>Update Brand</h2>
-          <div className="flex flex-center justify-start gap-5 mt-3">
-            <p>ID: {brand.BrandID}</p>
-            <div className="flex gap-2 bg-blue-200 rounded-lg p-3 m-5">
-              <label>Name:</label>
-              <input type="text" value={name} onChange={handleNameChange} />
-            </div>
-            <div className="flex gap-2 bg-blue-200 rounded-lg p-3 m-5">
-              <label>Description:</label>
-              <textarea value={desc} onChange={handleDescChange} />
-            </div>
-            <button
-              className="bg-blue-300 rounded-lg px-2 py-1"
-              onClick={handleUpdate}
-            >
-              Update
-            </button>
+        <div className="p-3">
+          <h2></h2>
+          <div className="flex flex-col flex-center justify-start mt-3">
+            <form>
+              <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Brand Name
+              </label>
+              <input
+                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                type="text"
+                value={name}
+                onChange={handleNameChange}
+              />
+              <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Brand Description
+              </label>
+              <textarea
+                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                value={desc}
+                onChange={handleDescChange}
+              />
+              <button
+                className="px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-700"
+                type="button"
+                onClick={handleUpdate}
+              >
+                Update
+              </button>
+            </form>
           </div>
         </div>
       </div>

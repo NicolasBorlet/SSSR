@@ -1,3 +1,4 @@
+import { Discount } from './../../../../../backend/src/discount/entities/discount.entity';
 export interface Product {
     ProductID: any;
     ProductName: string;
@@ -7,6 +8,8 @@ export interface Product {
     ProductThumb: string;
     // ProductUpdateTime?: string;
     BrandID?: string | undefined;
+    CategorieID?: string | undefined;
+    ProductCategorieID?: string | undefined;
     ProductStock: number;
     type: string;
 }
@@ -25,4 +28,5 @@ export interface ProductShoes {
     ShoesSize?: number | null;
     ShoesSizePrice?: number | null;
     ShoesSizeQuantity?: number | null;
+    DiscountID?: number | null;
 }

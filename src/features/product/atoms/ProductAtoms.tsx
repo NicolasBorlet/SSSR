@@ -10,3 +10,8 @@ export const productTypeAtom = atom({
   key: "productTypeAtom",
   default: "shoes",
 });
+
+export const visibleAtom = atom({
+  key: "visibleAtom",
+  default: false,
+});

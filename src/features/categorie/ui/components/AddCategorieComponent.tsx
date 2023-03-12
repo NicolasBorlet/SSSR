@@ -1,61 +1,53 @@
 import { useRecoilState } from "recoil";
-import { brandAtom } from "../../atoms/BrandAtoms";
-import { Brand } from "../../types/brand";
+import { categorieAtom } from "../../atoms/categorieAtom";
+import { CategorieProps } from "../../types/categorie-types";
 
-const BrandAdding = () => {
-  const [brands, setBrands] = useRecoilState(brandAtom);
+const AddCategorieComponent = () => {
+  const [categorie, setCategorie] = useRecoilState(categorieAtom);
 
-  // function to add brand
-  const addBrand = (brand: Brand) => {
+  // function to add categorie
+  const addCategorie = (categorie: CategorieProps) => {
     // fetch data from API
-    fetch(`http://localhost:3000/brand/`, {
+    fetch(`http://localhost:3000/productcategorie/`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify(brand),
+      body: JSON.stringify(categorie),
     })
       .then((res) => res.json())
       .then((data) => {
         // set data to state
-        setBrands([...brands, data]);
-        window.location.href = "/brand";
+        setCategorie([data]);
+        window.location.href = "/categorie";
         console.log(data);
       });
   };
 
   return (
     <div className="m-5 w-[20%]">
-      <h1>Ajouter une marque</h1>
+      <h1>Ajouter une catégorie</h1>
       <div className="p-3">
         <form
           className="flex flex-col gap-3 justify-center items-center"
           onSubmit={(e) => {
             e.preventDefault();
-            addBrand({
-              BrandID: null,
-              BrandName: e.currentTarget.brandName.value,
-              BrandDesc: e.currentTarget.brandDesc.value,
+            addCategorie({
+              CategorieID: null,
+              CategorieName: e.currentTarget.categorieName.value,
             });
           }}
         >
           <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Nom de la marque:
+            Nom de la catégorie:
             <input
               type="text"
-              name="brandName"
+              name="categorieName"
               className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
             />
           </label>
-          <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Description de la marque:
-            <textarea
-              name="brandDesc"
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
-          </label>
           <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-            Ajouter la marque
+            Ajouter la catégorie
           </button>
         </form>
       </div>
@@ -63,4 +55,4 @@ const BrandAdding = () => {
   );
 };
 
-export default BrandAdding;
+export default AddCategorieComponent;
