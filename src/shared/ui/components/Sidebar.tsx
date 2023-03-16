@@ -1,5 +1,6 @@
 import {
   faCertificate,
+  faHeadSideVirus,
   faHouse,
   faPercent,
   faShield,
@@ -125,6 +126,15 @@ const Sidebar = () => {
               >
                 <FontAwesomeIcon icon={faPercent} />
                 <span className="flex-1 ml-3 whitespace-nowrap">Réduction</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="/login"
+                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <FontAwesomeIcon icon={faHeadSideVirus} />
+                <span className="flex-1 ml-3 whitespace-nowrap">Compte</span>
               </a>
             </li>
           </ul>
