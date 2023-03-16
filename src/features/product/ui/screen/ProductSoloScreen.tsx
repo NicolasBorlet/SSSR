@@ -32,7 +32,6 @@ const ProductSoloScreen = () => {
         setProductStock(data[0].ProductStock);
         setType(data[0].type);
         console.log(data);
-        console.log("type", type);
       });
 
     //fetch category data
@@ -41,13 +40,13 @@ const ProductSoloScreen = () => {
       .then((data) => {
         // set data to state
         setCategories(data);
-        console.log(data);
+        console.log("catégorie", data);
       });
   }, []);
 
   const handleUpdate = () => {
     fetch(`http://localhost:3000/product/${id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -57,7 +56,7 @@ const ProductSoloScreen = () => {
         ProductShortDesc: productShortDesc,
         ProductLongDesc: productLongDesc,
         ProductStock: productStock,
-        ProductCategorieID: categories,
+        ProductCategorieID: product?.ProductCategorieID,
       }),
     })
       .then((res) => res.json())
@@ -91,6 +90,7 @@ const ProductSoloScreen = () => {
                     ...product,
                     ProductCategorieID: e.target.value,
                   });
+                  console.log(e.target.value);
                 }}
               >
                 {categories.map((categorie) => (
@@ -101,9 +101,9 @@ const ProductSoloScreen = () => {
                     >
                       {categorie.CategorieName}
                     </option>
-                    <option value="NULL">-</option>
                   </>
                 ))}
+                <option value="NULL">-</option>
               </select>
               <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Nom du produit

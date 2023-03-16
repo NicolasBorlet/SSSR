@@ -53,7 +53,7 @@ const AddProductComponent = () => {
       })
       .then((data) => {
         console.log(data);
-        window.location.href = "/product";
+        // window.location.reload();
       })
       .catch((error) => {
         console.error("Error adding product:", error);

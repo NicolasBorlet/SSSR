@@ -12,6 +12,7 @@ import ProductScreen from "./features/product/ui/screen/ProductScreen";
 import ProductSoloScreen from "./features/product/ui/screen/ProductSoloScreen";
 import reportWebVitals from "./reportWebVitals";
 import ErrorScreen from "./shared/ui/screen/ErrorScreen";
+import LoginScreen from "./shared/ui/screen/LoginScreen";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -21,7 +22,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorScreen />,
   },
   {
     path: "/brand",
@@ -50,6 +50,10 @@ const router = createBrowserRouter([
   {
     path: "/discount",
     element: <DiscountScreen />,
+  },
+  {
+    path: "/login",
+    element: <LoginScreen />,
   },
   {
     path: "*",
