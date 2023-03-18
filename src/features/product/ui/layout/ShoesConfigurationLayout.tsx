@@ -209,7 +209,17 @@ const ShoesConfigurationLayout = () => {
                               </button>
                             </div>
                           ) : (
-                            <p>{item.DiscountPercentage} %</p>
+                            <>
+                              {discountData.map((discount) => (
+                                <div>
+                                  {discount.DiscountID === item.DiscountID ? (
+                                    <div>{discount.DiscountPercentage} %</div>
+                                  ) : (
+                                    <div></div>
+                                  )}
+                                </div>
+                              ))}
+                            </>
                           )}
                         </p>
                       </div>
