@@ -9,6 +9,7 @@ const ShoesConfigurationLayout = () => {
   const [products, setProducts] = useRecoilState(productAtom);
   const [shoesSizeData, setShoesSizeData] = useState([]);
   const [discountData, setDiscountData] = useRecoilState(discountAtom);
+  const [visible, setVisible] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -73,6 +74,26 @@ const ShoesConfigurationLayout = () => {
         // set data to state
         setProducts([...products, data]);
         window.location.reload();
+        console.log(data);
+      });
+  };
+
+  //function for add discount to an existing shoes size
+  const addDiscount = (discount: any) => {
+    // fetch data from API
+    fetch(`http://localhost:3000/shoessize/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(discount),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // set data to state
+        setProducts([...products, data]);
+        setDiscountData([...discountData, data]);
+        // window.location.reload();
         console.log(data);
       });
   };
@@ -204,9 +225,42 @@ const ShoesConfigurationLayout = () => {
                           {item.DiscountID === null ||
                           item.DiscountID === undefined ? (
                             <div>
-                              <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                Ajouter une réduction
+                              <button
+                                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                                onClick={() => {
+                                  setVisible(!visible);
+                                }}
+                              >
+                                {visible
+                                  ? "Annuler l'ajout d'une réduction"
+                                  : "Ajouter une réduction"}
                               </button>
+                              {visible ? (
+                                <div>
+                                  <select
+                                    name="DiscountID"
+                                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                                  >
+                                    {discountData.map((discount) => (
+                                      <option value={discount.DiscountID}>
+                                        {discount.DiscountPercentage} %
+                                      </option>
+                                    ))}
+                                  </select>
+                                  <button
+                                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                                    onClick={() => {
+                                      addDiscount({
+                                        DiscountID: item.DiscountID,
+                                        ShoesSizeID: item.ShoesSizeID,
+                                      });
+                                      setVisible(!visible);
+                                    }}
+                                  >
+                                    Ajouter la réduction
+                                  </button>
+                                </div>
+                              ) : null}
                             </div>
                           ) : (
                             <>
@@ -219,6 +273,11 @@ const ShoesConfigurationLayout = () => {
                                   )}
                                 </div>
                               ))}
+                              <div>
+                                <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                  Modifier la réduction
+                                </button>
+                              </div>
                             </>
                           )}
                         </p>

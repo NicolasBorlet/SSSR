@@ -1,5 +1,3 @@
-import { Route, Routes } from "react-router-dom";
-import App from "../../../App";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
@@ -15,6 +13,7 @@ const Layout = ({ children }: LayoutProps) => {
       <Header />
       <main className="main">{children}</main>
       <Footer />
+      {/* <View /> */}
     </div>
   );
 };

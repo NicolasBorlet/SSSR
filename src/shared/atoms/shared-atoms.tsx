@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { UserProps } from "../types/shared-type";
+import { UserStatusProps } from "../types/shared-type";
 
 export const userState = atom({
   key: "userState",

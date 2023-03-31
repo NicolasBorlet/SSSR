@@ -1,1 +1,3 @@
-export interface UserProps {}
+export interface UserStatusProps {
+  isConnect: boolean;
+}
