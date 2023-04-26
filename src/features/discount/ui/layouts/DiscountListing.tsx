@@ -14,7 +14,7 @@ const DiscountListing = () => {
         setDiscounts(data);
         console.log(data);
       });
-  }, []);
+  }, [setDiscounts]);
 
   //function to delete discount
   const deleteDiscount = (id: number) => {

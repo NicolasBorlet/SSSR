@@ -58,7 +58,6 @@ const BrandSoloScreen = () => {
     <Layout>
       <div className="m-5">
         <div className="p-3">
-          <h2></h2>
           <div className="flex flex-col flex-center justify-start mt-3">
             <form>
               <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">

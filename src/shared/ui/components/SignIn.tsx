@@ -1,23 +1,36 @@
-import React, { useState } from "react";
+import { useRef } from "react";
 
 const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const usernameRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    const response = await fetch("http://localhost:3000/user", {
+
+    // Check if email is already in use
+    const usersResponse = await fetch("http://localhost:3000/user/all");
+    const users = await usersResponse.json();
+    const userWithEmail = users.find(
+      (user: any) => user.UserEmail === emailRef.current?.value
+    );
+    if (userWithEmail) {
+      alert("This email is already in use.");
+      return;
+    }
+
+    // Create new user if email is not in use
+    const response = await fetch("http://localhost:3000/user/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        UserEmail: email,
-        UserPassword: password,
-        UserFirstName: firstName,
-        UserLastName: lastName,
-        UserUserName: username,
+        UserEmail: emailRef.current?.value,
+        UserPassword: passwordRef.current?.value,
+        UserFirstName: firstNameRef.current?.value,
+        UserLastName: lastNameRef.current?.value,
+        UserUserName: usernameRef.current?.value,
       }),
     });
     const data = await response.json();
@@ -36,8 +49,7 @@ const SignIn = () => {
         <input
           type="text"
           id="username"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
+          ref={usernameRef}
           required
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
@@ -50,9 +62,10 @@ const SignIn = () => {
         <input
           type="email"
           id="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          ref={emailRef}
           required
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          title="Il semblerait que le format de votre email ne correspond pas."
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
       </div>
@@ -66,8 +79,7 @@ const SignIn = () => {
         <input
           type="password"
           id="password-create"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          ref={passwordRef}
           required
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
@@ -82,8 +94,7 @@ const SignIn = () => {
         <input
           type="text"
           id="firstName"
-          value={firstName}
-          onChange={(event) => setFirstName(event.target.value)}
+          ref={firstNameRef}
           required
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
@@ -98,18 +109,19 @@ const SignIn = () => {
         <input
           type="text"
           id="lastName"
-          value={lastName}
-          onChange={(event) => setLastName(event.target.value)}
+          ref={lastNameRef}
           required
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
       </div>
-      <button
-        type="submit"
-        className="text-white mt-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        Sign In
-      </button>
+      <div>
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+        >
+          Sign In
+        </button>
+      </div>
     </form>
   );
 };

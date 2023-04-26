@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { brandAtom } from "../../../brand/atoms/BrandAtoms";
-import { productTypeAtom, visibleAtom } from "../../atoms/ProductAtoms";
+import { productTypeAtom } from "../../atoms/ProductAtoms";
 import { Product } from "../../types/product";
 import { categorieAtom } from "../../../categorie/atoms/categorieAtom";
 
@@ -29,7 +29,7 @@ const AddProductComponent = () => {
         setCategories(data);
         console.log(data);
       });
-  }, []);
+  }, [setBrands, setCategories]);
 
   //function to update type of product
   const updateType = (e: any) => {

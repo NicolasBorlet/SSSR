@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom"; // import the useNavigate hook
 import { userState } from "../../atoms/shared-atoms";
@@ -10,7 +9,7 @@ import Login from "../components/Login";
 
 const LoginScreen = () => {
   const [user, setUser] = useRecoilState(userState);
-  const [errorMessage, setErrorMessage] = useState("");
+  const errorMessage = localStorage.getItem("errorMessage");
   const navigate = useNavigate();
 
   const handleLogout = () => {

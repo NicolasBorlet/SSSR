@@ -1,6 +1,7 @@
 import { useRecoilState } from "recoil";
 import { brandAtom } from "../../atoms/BrandAtoms";
 import { Brand } from "../../types/brand";
+import { ToastMessage } from "../../../../shared/ui/components/ToastMessage";
 
 const BrandAdding = () => {
   const [brands, setBrands] = useRecoilState(brandAtom);
@@ -19,8 +20,9 @@ const BrandAdding = () => {
       .then((data) => {
         // set data to state
         setBrands([...brands, data]);
-        window.location.href = "/brand";
-        console.log(data);
+        // window.location.href = "/brand";
+        // console.log(data);
+        ToastMessage({ message: "test", type: "success" });
       });
   };
 

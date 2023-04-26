@@ -1,6 +1,8 @@
+import * as React from "react";
 import { useRecoilState } from "recoil";
 import { discountAtom } from "../../atoms/discountAtom";
 import { DiscountProps } from "../../types/discount-type";
+import { ToastMessage } from "../../../../shared/ui/components/ToastMessage";
 
 export interface ShoesSizeProps {
   ShoesSizeID: number;
@@ -29,9 +31,12 @@ const AddDiscountComponent = () => {
         // set data to state
         setDiscount([data]);
         window.location.reload();
-        console.log(data);
       });
   };
+
+  React.useEffect(() => {
+    console.log(discount);
+  }, []);
 
   return (
     <div className="m-5">
@@ -50,7 +55,7 @@ const AddDiscountComponent = () => {
           <label className="block w-full mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Pourcentage de réduction:
             <input
-              type="text"
+              type="number"
               name="discountPercentage"
               className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
             />

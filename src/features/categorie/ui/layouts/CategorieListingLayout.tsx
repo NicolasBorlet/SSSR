@@ -14,7 +14,7 @@ const CategorieListingLayout = () => {
         setCategories(data);
         console.log(data);
       });
-  }, []);
+  }, [setCategories]);
 
   //function to delete categorie
   const deleteCategorie = (id: number) => {

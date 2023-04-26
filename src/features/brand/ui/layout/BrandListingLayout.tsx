@@ -9,23 +9,39 @@ const BrandListingLayout = () => {
   const navigate = useNavigate();
   const [isLoad, setIsLoad] = useState(false);
 
-  useEffect(() => {
-    // fetch data from API
-    fetch("http://localhost:3000/brand/")
-      .then((res) => res.json())
-      .then((data) => {
-        // set data to state
-        setBrands(data);
-        setIsLoad(true);
-        console.log(data);
-      });
-  }, []);
+  useEffect(
+    () => {
+      const controller = new AbortController();
+      const signal = controller.signal;
+      // fetch data from API
+      fetch("http://localhost:3000/brand/", { signal: signal })
+        .then((res) => res.json())
+        .then((data) => {
+          // set data to state
+          setBrands(data);
+          setIsLoad(true);
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      return () => {
+        controller.abort();
+      };
+    }, //load only once when component is mounted
+    [setBrands]
+  );
 
   //function to delete brand
   const deleteBrand = (id: number) => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     // fetch data from API
     fetch(`http://localhost:3000/brand/${id}`, {
       method: "DELETE",
+      signal: signal,
     })
       .then((res) => res.json())
       .then((data) => {
@@ -33,7 +49,13 @@ const BrandListingLayout = () => {
         setBrands(brands.filter((brand) => brand.BrandID !== id));
         navigate("/brand");
         console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
+    return () => {
+      controller.abort();
+    };
   };
 
   return (

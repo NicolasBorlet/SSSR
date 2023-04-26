@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
@@ -11,10 +11,8 @@ import ProductConfigurationScreen from "./features/product/ui/screen/ProductConf
 import ProductScreen from "./features/product/ui/screen/ProductScreen";
 import ProductSoloScreen from "./features/product/ui/screen/ProductSoloScreen";
 import reportWebVitals from "./reportWebVitals";
-import { userState } from "./shared/atoms/shared-atoms";
 import ErrorScreen from "./shared/ui/screen/ErrorScreen";
 import LoginScreen from "./shared/ui/screen/LoginScreen";
-import View from "./shared/View";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

@@ -27,7 +27,6 @@ const Login = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
-
       if (response.ok) {
         const { token } = await response.json();
         localStorage.setItem("token", token); // store the token in localStorage
@@ -41,13 +40,6 @@ const Login = () => {
       setErrorMessage("An error occurred. Please try again later.");
     }
   };
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setUser(true);
-    }
-  }, [setUser, navigate]);
 
   return (
     <form onSubmit={handleSubmit}>

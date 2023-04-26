@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { productAtom, visibleAtom } from "../../atoms/ProductAtoms";
+import { productAtom } from "../../atoms/ProductAtoms";
 
 const ProductListingLayout = () => {
   const [products, setProducts] = useRecoilState(productAtom);
@@ -34,7 +34,7 @@ const ProductListingLayout = () => {
         setCategories(data);
         console.log(data);
       });
-  }, []);
+  }, [setProducts, setBrands, setCategories]);
 
   //function to delete product
   const deleteProduct = (id: string) => {
@@ -109,10 +109,7 @@ const ProductListingLayout = () => {
             <tbody>
               {products.map((product) => (
                 <tr key={product.ProductID} className="">
-                  <td
-                    className="px-5 py-5 border-b border-gray-200 bg-white text-sm"
-                    scope="row"
-                  >
+                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 w-10 h-10">
                         <img
