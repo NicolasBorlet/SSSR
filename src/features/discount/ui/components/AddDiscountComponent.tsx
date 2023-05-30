@@ -2,7 +2,6 @@ import * as React from "react";
 import { useRecoilState } from "recoil";
 import { discountAtom } from "../../atoms/discountAtom";
 import { DiscountProps } from "../../types/discount-type";
-import { ToastMessage } from "../../../../shared/ui/components/ToastMessage";
 
 export interface ShoesSizeProps {
   ShoesSizeID: number;
@@ -36,7 +35,7 @@ const AddDiscountComponent = () => {
 
   React.useEffect(() => {
     console.log(discount);
-  }, []);
+  }, [discount]);
 
   return (
     <div className="m-5">

@@ -35,6 +35,7 @@ const AddProductComponent = () => {
   const updateType = (e: any) => {
     setTypes(e.currentTarget.value);
   };
+
   // function to add product
   const addProduct = (product: Product) => {
     // fetch data from API
@@ -53,7 +54,6 @@ const AddProductComponent = () => {
       })
       .then((data) => {
         console.log(data);
-        // window.location.reload();
       })
       .catch((error) => {
         console.error("Error adding product:", error);
@@ -80,7 +80,6 @@ const AddProductComponent = () => {
                 ProductShortDesc: e.currentTarget.productShortDesc.value,
                 ProductLongDesc: e.currentTarget.productLongDesc.value,
                 ProductStock: e.currentTarget.productStock.value,
-                ProductThumb: e.currentTarget.productImage.value,
                 type: e.currentTarget.productType.value,
                 BrandID: e.currentTarget.BrandID.value,
                 CategorieID: e.currentTarget.CategoryID.value,
@@ -93,7 +92,6 @@ const AddProductComponent = () => {
                 ProductShortDesc: e.currentTarget.productShortDesc.value,
                 ProductLongDesc: e.currentTarget.productLongDesc.value,
                 ProductStock: e.currentTarget.productStock.value,
-                ProductThumb: e.currentTarget.productImage.value,
                 type: e.currentTarget.productType.value,
                 CategorieID: e.currentTarget.CategoryID.value,
               });
@@ -163,9 +161,7 @@ const AddProductComponent = () => {
             Image du produit:
             <input
               className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-              aria-describedby="product_image_help"
-              name="productImage"
-              id="productImage"
+              name="ProductThumb"
               type="file"
             ></input>
           </label>

@@ -44,10 +44,10 @@ const Login = () => {
   return (
     <form onSubmit={handleSubmit}>
       <label
-        htmlFor="username"
+        htmlFor="email"
         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
       >
-        Username
+        Email
       </label>
       <input
         type="text"

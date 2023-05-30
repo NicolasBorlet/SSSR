@@ -5,7 +5,6 @@ const SignIn = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const firstNameRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
-  const usernameRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -19,40 +18,28 @@ const SignIn = () => {
     if (userWithEmail) {
       alert("This email is already in use.");
       return;
+    } else {
+      // Create new user if email is not in use
+      const response = await fetch("http://localhost:3000/user/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          UserEmail: emailRef.current?.value,
+          UserPassword: passwordRef.current?.value,
+          UserFirstName: firstNameRef.current?.value,
+          UserLastName: lastNameRef.current?.value,
+          UserRole: "MEMBER",
+          UserRegistrationTime: new Date(),
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
     }
-
-    // Create new user if email is not in use
-    const response = await fetch("http://localhost:3000/user/create", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        UserEmail: emailRef.current?.value,
-        UserPassword: passwordRef.current?.value,
-        UserFirstName: firstNameRef.current?.value,
-        UserLastName: lastNameRef.current?.value,
-        UserUserName: usernameRef.current?.value,
-      }),
-    });
-    const data = await response.json();
-    console.log(data);
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label
-          htmlFor="username"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          Username :
-        </label>
-        <input
-          type="text"
-          id="username"
-          ref={usernameRef}
-          required
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
         <label
           htmlFor="email"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"

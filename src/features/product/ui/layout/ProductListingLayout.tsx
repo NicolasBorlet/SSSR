@@ -157,6 +157,8 @@ const ProductListingLayout = () => {
                         if (brand.BrandID === product.BrandID) {
                           return brand.BrandName;
                         }
+
+                        return "Aucune marque";
                       })}
                     </p>
                   </td>
@@ -169,6 +171,8 @@ const ProductListingLayout = () => {
                         if (product.CategorieID === null) {
                           return "Aucune catégorie";
                         }
+
+                        return "Aucune catégorie";
                       })}
                     </p>
                   </td>
