@@ -1,4 +1,3 @@
-import { Discount } from "../../../../../backend/src/discount/entities/discount.entity";
 export interface Product {
   ProductID: any;
   ProductName: string;
