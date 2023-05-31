@@ -7,7 +7,7 @@ import { ProductShoes } from "../../types/product";
 
 const ShoesConfigurationLayout = () => {
   const [products, setProducts] = useRecoilState(productAtom);
-  const [shoesSizeData, setShoesSizeData] = useState([]);
+  const [shoesSizeFilteredData, setShoesSizeFilteredData] = useState<[]>();
   const [discountData, setDiscountData] = useRecoilState(discountAtom);
   const [selectedShoesSize, setSelectedShoesSize] = useState<number>();
   const [visible, setVisible] = useState(false);
@@ -28,8 +28,11 @@ const ShoesConfigurationLayout = () => {
           ShoesSizeID: item.ShoesSizeID,
         }));
         // set the extracted data to state
-        setShoesSizeData(data);
         console.log("shoesSizesData", shoesSizes);
+
+        setShoesSizeFilteredData(
+          shoesSizes.filter((item: any) => item.ProductID === Number(id))
+        );
       });
 
     fetch(`http://localhost:3000/discount/`)
@@ -38,6 +41,12 @@ const ShoesConfigurationLayout = () => {
         console.log("discountData", data);
         setDiscountData(data);
       });
+
+    console.log("id", id);
+
+    return () => {
+      setDiscountData([]);
+    };
   }, []);
 
   const addShoes = (shoes: ProductShoes) => {
@@ -47,7 +56,7 @@ const ShoesConfigurationLayout = () => {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify(shoes),
+      body: JSON.stringify({ ...shoes, ProductID: id }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -185,7 +194,7 @@ const ShoesConfigurationLayout = () => {
               </tr>
             </thead>
             <tbody>
-              {shoesSizeData.map((item: any) => (
+              {shoesSizeFilteredData?.map((item: any) => (
                 <tr key={item.ShoesSizeID}>
                   <td className="px-5 py-5 border-b text-center border-gray-200 bg-white text-sm">
                     <div className="flex items-center justify-center">

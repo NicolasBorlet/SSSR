@@ -156,10 +156,8 @@ const ProductListingLayout = () => {
                       {brands.map((brand: any) => {
                         if (brand.BrandID === product.BrandID) {
                           return brand.BrandName;
-                        }
-
-                        return "Aucune marque";
-                      })}
+                        } 
+                      })}                      
                     </p>
                   </td>
                   <td className="px-5 py-5 border-b text-center border-gray-200 bg-gray-50 text-sm">
@@ -168,11 +166,6 @@ const ProductListingLayout = () => {
                         if (category.CategorieID === product.CategorieID) {
                           return category.CategorieName;
                         }
-                        if (product.CategorieID === null) {
-                          return "Aucune catégorie";
-                        }
-
-                        return "Aucune catégorie";
                       })}
                     </p>
                   </td>
