@@ -37,10 +37,15 @@ const BrandListingLayout = () => {
   const deleteBrand = (id: number) => {
     const controller = new AbortController();
     const signal = controller.signal;
+    const token = localStorage.getItem("token");
 
     // fetch data from API
     fetch(`http://localhost:3000/brand/${id}`, {
       method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       signal: signal,
     })
       .then((res) => res.json())

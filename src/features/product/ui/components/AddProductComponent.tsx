@@ -72,6 +72,9 @@ const AddProductComponent = () => {
             //if type is shoes
 
             e.preventDefault();
+
+            const formData = new FormData(e.currentTarget);
+
             if (types === "shoes") {
               addProduct({
                 ProductID: null,
@@ -80,6 +83,7 @@ const AddProductComponent = () => {
                 ProductShortDesc: e.currentTarget.productShortDesc.value,
                 ProductLongDesc: e.currentTarget.productLongDesc.value,
                 ProductStock: e.currentTarget.productStock.value,
+                ProductThumb: formData.get("ProductThumb"), // Récupérer le fichier image
                 type: e.currentTarget.productType.value,
                 BrandID: e.currentTarget.BrandID.value,
                 CategorieID: e.currentTarget.CategoryID.value,
@@ -92,6 +96,7 @@ const AddProductComponent = () => {
                 ProductShortDesc: e.currentTarget.productShortDesc.value,
                 ProductLongDesc: e.currentTarget.productLongDesc.value,
                 ProductStock: e.currentTarget.productStock.value,
+                ProductThumb: formData.get("ProductThumb"), // Récupérer le fichier image
                 type: e.currentTarget.productType.value,
                 CategorieID: e.currentTarget.CategoryID.value,
               });

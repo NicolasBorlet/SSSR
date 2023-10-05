@@ -1,14 +1,9 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { userState } from "../../atoms/shared-atoms";
+import { useState } from "react";
 
 const Login = () => {
-  const [user, setUser] = useRecoilState(userState);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
+  const [, setErrorMessage] = useState("");
 
   const handleUsernameChange = (event: any) => {
     setUsername(event.target.value);
@@ -28,10 +23,11 @@ const Login = () => {
         body: JSON.stringify({ username, password }),
       });
       if (response.ok) {
-        const { token } = await response.json();
-        localStorage.setItem("token", token); // store the token in localStorage
-        setUser(true);
-        navigate("/");
+        const { accessToken } = await response.json();
+        const { access_token: token } = accessToken;
+        localStorage.setItem("token", token);
+        localStorage.setItem("userMail", username);
+        console.log("Connexion successful! Here is your token: ", token);
       } else {
         setErrorMessage("Invalid username or password");
       }

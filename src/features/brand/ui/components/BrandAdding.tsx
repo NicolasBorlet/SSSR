@@ -8,11 +8,13 @@ const BrandAdding = () => {
 
   // function to add brand
   const addBrand = (brand: Brand) => {
+    const token = localStorage.getItem("token");
     // fetch data from API
     fetch(`http://localhost:3000/brand/`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(brand),
     })

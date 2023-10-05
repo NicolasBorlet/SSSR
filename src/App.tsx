@@ -1,30 +1,19 @@
-import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
 import "./App.css";
-import { userState } from "./shared/atoms/shared-atoms";
 import Layout from "./shared/ui/layout/Layout";
+import { useEffect } from "react";
+import HomeScreen from "./features/home/ui/screen/HomeScreen";
 
 function App() {
   const token = localStorage.getItem("token");
-  const [user, setUser] = useRecoilState(userState);
 
   useEffect(() => {
-    if (token) {
-      setUser(true);
-      console.log("user", user);
-    } else {
-      setUser(false);
-    }
-  }, [user, setUser, token]);
+    console.log("token", token);
+  }, [token]);
 
   return (
     <>
-      {user === true ? (
-        <Layout children={<div className="App"></div>} />
-      ) : (
-        <Navigate to="/login" />
-      )}
+      {token ? <Layout children={<HomeScreen />} /> : <Navigate to="/login" />}
     </>
   );
 }

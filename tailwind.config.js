@@ -5,6 +5,8 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Inter var"],
+        title: ["Sirukota"],
+        text: ["Montserrat"],
       },
     },
   },

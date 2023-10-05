@@ -4,7 +4,7 @@ export interface Product {
   ProductCartDesc: string;
   ProductShortDesc: string;
   ProductLongDesc: string;
-  ProductThumb?: string;
+  ProductThumb?: FormDataEntryValue | null;
   // ProductUpdateTime?: string;
   BrandID?: string | undefined;
   CategorieID?: string | undefined;

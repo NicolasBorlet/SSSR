@@ -7,16 +7,15 @@ import { productAtom } from "../../atoms/ProductAtoms";
 import { Product } from "../../types/product";
 
 const ProductSoloScreen = () => {
-  const [products, setProducts] = useRecoilState(productAtom);
+  const [, setProducts] = useRecoilState(productAtom);
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const [name, setName] = useState("");
   const [productShortDesc, setProductShortDesc] = useState("");
   const [productLongDesc, setProductLongDesc] = useState("");
   const [productCartDesc, setProductCartDesc] = useState("");
-  const [productThumb, setProductThumb] = useState("");
   const [productStock, setProductStock] = useState(0);
-  const [type, setType] = useState("");
+  const [, setType] = useState("");
   const [categories, setCategories] = useRecoilState(categorieAtom);
 
   useEffect(() => {
